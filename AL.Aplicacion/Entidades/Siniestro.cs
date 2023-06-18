@@ -7,16 +7,7 @@ public class Siniestro
     public DateTime FechaOcurrencia { get; private set; }
     public string Direccion { get; private set; } = "";
     public string Descripcion { get; private set; } = "";
-
-    public Siniestro(int id, int idPoliza, DateTime fechaIngreso, DateTime fechaOcurrencia, string direccion, string descripcion)
-    {
-        this.Id = id;
-        this.IdPoliza = idPoliza;
-        this.FechaIngreso = fechaIngreso;
-        this.FechaOcurrencia = fechaOcurrencia;
-        this.Direccion = direccion;
-        this.Descripcion = descripcion;
-    }
+    public List<Tercero>? Terceros { get; set; }
     
     public override string ToString()
     {

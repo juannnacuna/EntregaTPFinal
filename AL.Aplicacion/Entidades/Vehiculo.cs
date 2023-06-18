@@ -6,6 +6,7 @@ public class Vehiculo
     public string Marca { get; private set; } = "";
     public int Anio { get; private set; }
     public int IdTitular { get; private set; }
+    public List<Poliza>? Polizas { get; set; }
     
     public override string ToString()
     {

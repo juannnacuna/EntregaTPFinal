@@ -12,17 +12,7 @@ public class Poliza
     public TipoCob TipoCobertura { get; private set; }
     public DateTime FechaInicioVigencia { get; private set; }
     public DateTime FechaFinVigencia { get; private set; }
-
-    public Poliza(int id, int idVehiculo, float valor, float franquicia, TipoCob tipoCobertura, DateTime fechaIV, DateTime fechaFV)
-    {
-        this.Id = id;
-        this.IdVehiculo = idVehiculo;
-        this.Valor = valor;
-        this.Franquicia = franquicia;
-        this.TipoCobertura = tipoCobertura;
-        this.FechaInicioVigencia = fechaIV;
-        this.FechaFinVigencia = fechaFV;
-    }
+    public List<Siniestro>? Siniestros { get; set; }
     
     public override string ToString()
     {

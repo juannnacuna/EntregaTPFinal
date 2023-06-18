@@ -3,7 +3,7 @@ using AL.Aplicacion.Interfaces;
 using AL.Aplicacion.Entidades;
 using Microsoft.EntityFrameworkCore;
 
-public class RepositorioTitularTXT : IRepositorioTitular
+public class RepositorioTitular : IRepositorioTitular
 {
     public void AgregarTitular(Titular t)
     {
@@ -17,7 +17,7 @@ public class RepositorioTitularTXT : IRepositorioTitular
     {
         using (var db = new Context())
         {
-            var tModificar = db.Titulares.Where(x => x.Id == t.Id).SingleOrDefault();
+            var tModificar = db.Titulares.Where(x => x.Dni == t.Dni).SingleOrDefault();
             if (tModificar != null)
             {
                 tModificar = t;
