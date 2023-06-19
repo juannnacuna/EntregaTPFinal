@@ -1,4 +1,4 @@
-@page "/listadotitulares"
+@page "/listadoTitulares"
 @inject ListarTitularesUseCase ListarTitularesUseCase
 
 <table class="table">
@@ -28,12 +28,19 @@
         }
     </tbody>
 </table>
-
+<DialogoConfirmacion @ref=dialogo Mensaje="Hubo un error al listar los titulares"  />
 @code
 {
     List<Titular> _lista = new List<Titular>();
+    DialogoConfirmacion dialogo = null!;
     protected override void OnInitialized()
     {
+
+    try{
         _lista = ListarTitularesUseCase.Ejecutar();
+    }catch{
+        dialogo.Mostrar();
     }
+    }
+    
 }
