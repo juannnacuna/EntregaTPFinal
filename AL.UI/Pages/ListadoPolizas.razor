@@ -1,0 +1,46 @@
+@page "/listadoPolizas"
+@inject ListarPolizasUseCase ListarPolizasUseCase
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID VEHICULO</th>
+            <th>VALOR</th>
+            <th>FRANQUICIA</th>
+            <th>COBERTURA</th>
+            <th>INICIO</th>
+            <th>FIN</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in _lista)
+        {
+            <tr>
+                <td>@p.Id</td>
+                <td>@p.IdVehiculo</td>
+                <td>@p.Valor</td>
+                <td>@p.Franquicia</td>
+                <td>@p.TipoCobertura</td>
+                <td>@p.FechaInicioVigencia</td>
+                <td>@p.FechaFinVigencia</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<DialogoConfirmacion @ref=dialogo Mensaje="Hubo un error al listar las polizas"  />
+@code
+{
+    List<Poliza> _lista = new List<Poliza>();
+    DialogoConfirmacion dialogo = null!;
+    protected override void OnInitialized()
+    {
+
+    try{
+        _lista = ListarPolizasUseCase.Ejecutar();
+    }catch{
+        dialogo.Mostrar();
+    }
+    }
+    
+}

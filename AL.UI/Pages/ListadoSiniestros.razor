@@ -1,0 +1,44 @@
+@page "/listadoSiniestros"
+@inject ListarSiniestrosUseCase ListarSiniestrosUseCase
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ID POLIZA</th>
+            <th>FECHA INGRESO</th>
+            <th>FECHA OCURRENCIA</th>
+            <th>DIRECCION</th>
+            <th>DESCRIPCION</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in _lista)
+        {
+            <tr>
+                <td>@s.Id</td>
+                <td>@s.IdPoliza</td>
+                <td>@s.FechaIngreso</td>
+                <td>@s.FechaOcurrencia</td>
+                <td>@s.Direccion</td>
+                <td>@s.Descripcion</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<DialogoConfirmacion @ref=dialogo Mensaje="Hubo un error al listar los siniestros"  />
+@code
+{
+    List<Siniestro> _lista = new List<Siniestro>();
+    DialogoConfirmacion dialogo = null!;
+    protected override void OnInitialized()
+    {
+
+    try{
+        _lista = ListarSiniestrosUseCase.Ejecutar();
+    }catch{
+        dialogo.Mostrar();
+    }
+    }
+    
+}

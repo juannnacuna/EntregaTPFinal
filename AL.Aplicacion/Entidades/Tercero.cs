@@ -1,10 +1,10 @@
 namespace AL.Aplicacion.Entidades;
-public class Tercero: Persona
+public class Tercero : Persona
 {
     //Hereda: Id, Apellido, Nombre, Dni, Telefono
-    public string Aseguradora { get; private set; } = "";
-    public int IdSiniestro { get; private set; }
-    
+    public string Aseguradora { get; set; } = "";
+    public int IdSiniestro { get; set; }
+
     public override string ToString()
     {
         return base.ToString() + $", Aseguradora: {Aseguradora}, Id siniestro: {IdSiniestro}";
