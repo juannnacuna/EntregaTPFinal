@@ -17,10 +17,11 @@ public class RepositorioPoliza: IRepositorioPoliza
         using (var db = new Context())
         {
             var pModificar = db.Polizas.Where(x => x.Id == p.Id).SingleOrDefault();
-            if (pModificar != null)
+            if (pModificar == null)
             {
-                pModificar = p;
+                throw new Exception($"No existe póliza de Id {p.Id}");
             }
+            pModificar = p;
             db.SaveChanges();
         }
     }
@@ -29,10 +30,9 @@ public class RepositorioPoliza: IRepositorioPoliza
         using (var db = new Context())
         {
             var pEliminar = db.Polizas.Where(t => t.Id == IdBuscado).SingleOrDefault();
-            if (pEliminar != null)
-            {
-                db.Remove(pEliminar);
-            }
+            if (pEliminar == null)
+                throw new Exception($"No existe póliza de Id {IdBuscado}");
+            db.Remove(pEliminar);
             db.SaveChanges();
         }
     }

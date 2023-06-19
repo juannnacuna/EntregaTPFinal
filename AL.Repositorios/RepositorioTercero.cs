@@ -17,10 +17,9 @@ public class RepositorioTercero: IRepositorioTercero
         using (var db = new Context())
         {
             var tModificar = db.Terceros.Where(x => x.Id == t.Id).SingleOrDefault();
-            if (tModificar != null)
-            {
-                tModificar = t;
-            }
+            if (tModificar == null)
+                throw new Exception($"No existe tercero de Id {t.Id}");
+            tModificar = t;
             db.SaveChanges();
         }
     }
@@ -29,10 +28,9 @@ public class RepositorioTercero: IRepositorioTercero
         using (var db = new Context())
         {
             var tEliminar = db.Terceros.Where(t => t.Id == IdBuscado).SingleOrDefault();
-            if (tEliminar != null)
-            {
-                db.Remove(tEliminar);
-            }
+            if (tEliminar == null)
+                throw new Exception($"No existe tercero de Id {IdBuscado}");
+            db.Remove(tEliminar);
             db.SaveChanges();
         }
     }

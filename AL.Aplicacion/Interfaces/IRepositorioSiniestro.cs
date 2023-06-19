@@ -4,5 +4,8 @@ namespace AL.Aplicacion.Interfaces;
 
 public interface IRepositorioSiniestro
 {
-    //establecer casos de uso
+    void AgregarSiniestro(Siniestro s);
+    void ModificarSiniestro(Siniestro s);
+    void EliminarSiniestro(int id);
+    List<Siniestro> ListarSiniestros();
 }

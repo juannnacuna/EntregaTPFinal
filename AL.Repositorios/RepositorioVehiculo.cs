@@ -17,10 +17,9 @@ public class RepositorioVehiculo: IRepositorioVehiculo
         using (var db = new Context())
         {
             var vModificar = db.Vehiculos.Where(x => x.Id == v.Id).SingleOrDefault();
-            if (vModificar != null)
-            {
-                vModificar = v;
-            }
+            if (vModificar == null)
+                throw new Exception($"No existe vehículo de Id {v.Id}");
+            vModificar = v;
             db.SaveChanges();
         }
     }
@@ -29,10 +28,9 @@ public class RepositorioVehiculo: IRepositorioVehiculo
         using (var db = new Context())
         {
             var vEliminar = db.Vehiculos.Where(t => t.Id == IdBuscado).SingleOrDefault();
-            if (vEliminar != null)
-            {
-                db.Remove(vEliminar);
-            }
+            if (vEliminar == null)
+                throw new Exception($"No existe vehículo de Id {IdBuscado}");
+            db.Remove(vEliminar);
             db.SaveChanges();
         }
     }

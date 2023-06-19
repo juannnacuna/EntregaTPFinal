@@ -4,5 +4,8 @@ namespace AL.Aplicacion.Interfaces;
 
 public interface IRepositorioTercero
 {
-    //establecer casos de uso
+    void AgregarTercero(Tercero t);
+    void ModificarTercero(Tercero t);
+    void EliminarTercero(int id);
+    List<Tercero> ListarTerceros();
 }
