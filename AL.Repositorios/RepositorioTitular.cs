@@ -3,7 +3,7 @@ using AL.Aplicacion.Interfaces;
 using AL.Aplicacion.Entidades;
 using Microsoft.EntityFrameworkCore;
 
-public class RepositorioTitularTXT : IRepositorioTitular
+public class RepositorioTitular : IRepositorioTitular
 {
     public void AgregarTitular(Titular t)
     {
@@ -17,11 +17,10 @@ public class RepositorioTitularTXT : IRepositorioTitular
     {
         using (var db = new Context())
         {
-            var tModificar = db.Titulares.Where(x => x.Id == t.Id).SingleOrDefault();
-            if (tModificar != null)
-            {
-                tModificar = t;
-            }
+            var tModificar = db.Titulares.Where(x => x.Dni == t.Dni).SingleOrDefault();
+            if (tModificar == null)
+                throw new Exception($"No existe titular de Dni {t.Dni}");
+            tModificar = t;
             db.SaveChanges();
         }
     }
@@ -30,14 +29,9 @@ public class RepositorioTitularTXT : IRepositorioTitular
         using (var db = new Context())
         {
             var tEliminar = db.Titulares.Where(t => t.Id == IdBuscado).SingleOrDefault();
-            if (tEliminar != null)
-            {
-                foreach (var vEliminar in db.Vehiculos.Where(v => v.IdTitular == IdBuscado))
-                {
-                    db.Remove(vEliminar);
-                }
-                db.Remove(tEliminar);
-            }
+            if (tEliminar == null)
+                throw new Exception($"No existe titular de Id {IdBuscado}");
+            db.Remove(tEliminar);
             db.SaveChanges();
         }
     }

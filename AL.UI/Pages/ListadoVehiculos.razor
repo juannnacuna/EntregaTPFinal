@@ -1,0 +1,42 @@
+@page "/listadoVehiculos"
+@inject ListarVehiculosUseCase ListarVehiculosUseCase
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>DOMINIO</th>
+            <th>MARCA</th>
+            <th>ANIO</th>
+            <th>ID TITULAR</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in _lista)
+        {
+            <tr>
+                <td>@v.Id</td>
+                <td>@v.Dominio</td>
+                <td>@v.Marca</td>
+                <td>@v.Anio</td>
+                <td>@v.IdTitular</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<DialogoConfirmacion @ref=dialogo Mensaje="Hubo un error al listar los Vehiculos"  />
+@code
+{
+    List<Vehiculo> _lista = new List<Vehiculo>();
+    DialogoConfirmacion dialogo = null!;
+    protected override void OnInitialized()
+    {
+
+    try{
+        _lista = ListarVehiculosUseCase.Ejecutar();
+    }catch{
+        dialogo.Mostrar();
+    }
+    }
+    
+}
