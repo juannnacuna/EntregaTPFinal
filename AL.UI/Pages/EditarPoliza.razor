@@ -1,0 +1,71 @@
+@page "/poliza/{Id:int?}"
+@inject ObtenerPolizaUseCase ObtenerPolizaUseCase
+@inject ModificarPolizaUseCase ModificarPolizaUseCase
+@inject NavigationManager Navegador;
+@inject AgregarPolizaUseCase AgregarPolizaUseCase
+
+@if (_esNuevoPoliza)
+{
+    <h3>Agregando una nueva Póliza</h3>
+}
+else
+{
+    <h3>Modificando la Póliza "@_poliza.Id"</h3>
+}
+
+<div>
+    <span>Id del vehiculo:</span>
+    <input placeholder="Id del vehiculo" @bind="_poliza.VehiculoId" class="form-control">
+    <span>Valor:</span>
+    <input placeholder="Valor" @bind="_poliza.Valor" class="form-control">
+    <span>Franquicia:</span>
+    <input placeholder="Franquicia" @bind="_poliza.Franquicia" class="form-control">
+    <span>Tipo de Cobertura:</span>
+    <input placeholder="Telefono" @bind="_poliza.TipoCobertura" class="form-control">
+    <span>Fecha de inicio de vigencia:</span>
+    <input placeholder="Fecha de inicio de vigencia" @bind="_poliza.FechaInicioVigencia" class="form-control">
+    <span>Fecha de fin de vigencia:</span>
+    <input placeholder="Fecha de fin de vigencia:" @bind="_poliza.FechaFinVigencia" class="form-control"> 
+    <button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+</div>
+
+<DialogoConfirmacion @ref=dialogo/>
+
+@code {
+    Poliza _poliza = new Poliza();
+    DialogoConfirmacion dialogo = null!;
+    [Parameter] public int? Id { get; set; }
+    bool _esNuevoPoliza = true;
+    protected override void OnParametersSet()
+    {
+        if (Id != null)
+        {
+            var p_hallado = ObtenerPolizaUseCase.Ejecutar(Id.Value);
+            if (p_hallado != null)
+            {
+                _poliza = p_hallado;
+                _esNuevoPoliza = false;
+            }
+        }
+    }
+    void Aceptar()
+    {
+        try
+        {
+            if (_esNuevoPoliza)
+            {
+                AgregarPolizaUseCase.Ejecutar(_poliza);
+            }
+            else
+            {
+                ModificarPolizaUseCase.Ejecutar(_poliza);
+            }
+            _poliza = new Poliza();
+            Navegador.NavigateTo("listadoPolizas");
+        }
+        catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+    }
+}

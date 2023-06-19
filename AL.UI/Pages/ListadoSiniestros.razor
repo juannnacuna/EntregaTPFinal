@@ -1,5 +1,7 @@
 @page "/listadoSiniestros"
 @inject ListarSiniestrosUseCase ListarSiniestrosUseCase
+@inject EliminarSiniestroUseCase EliminarSiniestroUseCase
+@inject NavigationManager Navegador
 
 <table class="table">
     <thead>
@@ -17,28 +19,65 @@
         {
             <tr>
                 <td>@s.Id</td>
-                <td>@s.IdPoliza</td>
+                <td>@s.PolizaId</td>
                 <td>@s.FechaIngreso</td>
                 <td>@s.FechaOcurrencia</td>
                 <td>@s.Direccion</td>
                 <td>@s.Descripcion</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarSiniestro(s)">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(s)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
-<DialogoConfirmacion @ref=dialogo Mensaje="Hubo un error al listar los siniestros"  />
+
+<DialogoConfirmacion @ref=dialogo/>
+<DialogoConfirmacion @ref="dialogoEliminar" OnConfirmado="Eliminar" />
 @code
 {
     List<Siniestro> _lista = new List<Siniestro>();
     DialogoConfirmacion dialogo = null!;
     protected override void OnInitialized()
     {
-
-    try{
-        _lista = ListarSiniestrosUseCase.Ejecutar();
-    }catch{
-        dialogo.Mostrar();
+        try{
+            _lista = ListarSiniestrosUseCase.Ejecutar();
+        }catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
     }
+    DialogoConfirmacion dialogoEliminar = null!;
+    Siniestro? _siniestroParaEliminar = null;
+    private void ConfirmarEliminacion(Siniestro s)
+    {
+        _siniestroParaEliminar = s;
+        dialogoEliminar.Mensaje = $"¿Desea eliminar el siniestro {s.Id}?";
+        dialogoEliminar.Mostrar();
+    }
+    private void Eliminar()
+    {
+        try
+        {
+            if (_siniestroParaEliminar != null)
+            {
+                EliminarSiniestroUseCase.Ejecutar(_siniestroParaEliminar.Id);
+                _lista = ListarSiniestrosUseCase.Ejecutar();
+            }
+        }
+        catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+    }
+    void ModificarSiniestro(Siniestro s)
+    {
+        Navegador.NavigateTo($"siniestro/{s.Id}");
     }
     
 }

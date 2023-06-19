@@ -8,6 +8,9 @@ public class RepositorioTercero: IRepositorioTercero
     {
         using (var db = new Context())
         {
+            var existeSiniestro = db.Siniestros.Where(s => s.Id == t.SiniestroId).SingleOrDefault();
+            if (existeSiniestro == null)
+                throw new Exception($"No existe siniestro de Id {t.SiniestroId}");
             db.Add(t);
             db.SaveChanges();
         }
@@ -33,6 +36,14 @@ public class RepositorioTercero: IRepositorioTercero
             db.Remove(tEliminar);
             db.SaveChanges();
         }
+    }
+    public Tercero? ObtenerTercero(int IdBuscado)
+    {
+       using (var db = new Context())
+        {
+            var tBuscado = db.Terceros.Where(t => t.Id == IdBuscado).SingleOrDefault();
+            return tBuscado;
+        } 
     }
 
     public List<Tercero> ListarTerceros()

@@ -5,7 +5,7 @@
 <div>
     <h1>Agrega un siniestro</h1>
     <span>Id Poliza:</span>
-    <input placeholder="Id Poliza" @bind="_siniestro.IdPoliza" class="form-control">
+    <input placeholder="Id Poliza" @bind="_siniestro.PolizaId" class="form-control">
     <span>Fecha de ingreso:</span>
     <input placeholder="Fecha de ingreso" @bind="_siniestro.FechaIngreso" class="form-control">
     <span>Fecha de ocurrencia:</span>
@@ -17,7 +17,7 @@
     <button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
 </div>
 
-<DialogoConfirmacion @ref=dialogo Mensaje="Hubo un error al agregar el siniestro"  />
+<DialogoConfirmacion @ref=dialogo/>
 
 
 @code{
@@ -29,7 +29,8 @@
             AgregarSiniestroUseCase.Ejecutar(_siniestro);
             _siniestro = new Siniestro();
             Navegador.NavigateTo("listadoSiniestros");
-        }catch{
+        }catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
             dialogo.Mostrar();
         }
        

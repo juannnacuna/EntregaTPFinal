@@ -8,6 +8,9 @@ public class RepositorioVehiculo: IRepositorioVehiculo
     {
         using (var db = new Context())
         {
+            var existeTitular = db.Titulares.Where(t => t.Id == v.TitularId).SingleOrDefault();
+            if (existeTitular == null)
+                throw new Exception($"No existe titular de Id {v.TitularId}");
             db.Add(v);
             db.SaveChanges();
         }
@@ -33,6 +36,14 @@ public class RepositorioVehiculo: IRepositorioVehiculo
             db.Remove(vEliminar);
             db.SaveChanges();
         }
+    }
+    public Vehiculo? ObtenerVehiculo(int IdBuscado)
+    {
+       using (var db = new Context())
+        {
+            var vBuscado = db.Vehiculos.Where(v => v.Id == IdBuscado).SingleOrDefault();
+            return vBuscado;
+        } 
     }
 
     public List<Vehiculo> ListarVehiculos()

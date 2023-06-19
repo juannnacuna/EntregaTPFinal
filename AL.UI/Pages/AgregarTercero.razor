@@ -15,11 +15,11 @@
     <span>Aseguradora:</span>
     <input placeholder="Aseguradora" @bind="_tercero.Aseguradora" class="form-control">
     <span>Id Siniestro:</span>
-    <input placeholder="Id Siniestro" @bind="_tercero.IdSiniestro" class="form-control"> 
+    <input placeholder="Id Siniestro" @bind="_tercero.SiniestroId" class="form-control"> 
     <button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
 </div>
 
-<DialogoConfirmacion @ref=dialogo Mensaje="Hubo un error al agregar el Titular"  />
+<DialogoConfirmacion @ref=dialogo/>
 
 
 @code{
@@ -31,7 +31,8 @@
             AgregarTerceroUseCase.Ejecutar(_tercero);
             _tercero = new Tercero();
             Navegador.NavigateTo("listadoTerceros");
-        }catch{
+        }catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
             dialogo.Mostrar();
         }
        

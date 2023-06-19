@@ -5,7 +5,7 @@
 <div>
     <h1>Agrega una poliza</h1>
     <span>Id del vehiculo:</span>
-    <input placeholder="Id del vehiculo" @bind="_poliza.IdVehiculo" class="form-control">
+    <input placeholder="Id del vehiculo" @bind="_poliza.VehiculoId" class="form-control">
     <span>Valor:</span>
     <input placeholder="Valor" @bind="_poliza.Valor" class="form-control">
     <span>Franquicia:</span>
@@ -19,19 +19,21 @@
     <button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
 </div>
 
-<DialogoConfirmacion @ref=dialogo Mensaje="Hubo un error al agregar la poliza"  />
+<DialogoConfirmacion @ref=dialogo/>
 
 
 @code{
     Poliza _poliza = new Poliza();
     DialogoConfirmacion dialogo = null!;
+    string Mensaje = "";
     void Aceptar()
     {   
         try{
             AgregarPolizaUseCase.Ejecutar(_poliza);
             _poliza = new Poliza();
             Navegador.NavigateTo("listadoPolizas");
-        }catch{
+        }catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
             dialogo.Mostrar();
         }
        

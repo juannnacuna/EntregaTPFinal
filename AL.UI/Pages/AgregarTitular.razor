@@ -19,7 +19,7 @@
     <button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
 </div>
 
-<DialogoConfirmacion @ref=dialogo Mensaje="Hubo un error al agregar el Titular"  />
+<DialogoConfirmacion @ref=dialogo/>
 
 
 @code{
@@ -31,7 +31,8 @@
             AgregarTitularUseCase.Ejecutar(_titular);
             _titular = new Titular();
             Navegador.NavigateTo("listadoTitulares");
-        }catch{
+        }catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
             dialogo.Mostrar();
         }
        

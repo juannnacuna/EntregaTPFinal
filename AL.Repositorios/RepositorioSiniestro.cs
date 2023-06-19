@@ -8,9 +8,9 @@ public class RepositorioSiniestro: IRepositorioSiniestro
     {
         using (var db = new Context())
         {
-            var p = db.Polizas.Where(p => p.Id == s.IdPoliza).SingleOrDefault(); 
+            var p = db.Polizas.Where(p => p.Id == s.PolizaId).SingleOrDefault(); 
             if (p == null) 
-                throw new Exception($"No existe póliza de Id {s.IdPoliza}");
+                throw new Exception($"No existe póliza de Id {s.PolizaId}");
             if (!(p.FechaInicioVigencia < s.FechaOcurrencia && s.FechaOcurrencia < p.FechaFinVigencia))
                 throw new Exception($"El siniestro sucedió fuera del periodo de vigencia de su póliza");                
             db.Add(s);
@@ -24,7 +24,11 @@ public class RepositorioSiniestro: IRepositorioSiniestro
             var sModificar = db.Siniestros.Where(x => x.Id == s.Id).SingleOrDefault();
             if (sModificar == null)
                 throw new Exception($"No existe siniestro de Id {s.Id}");
-            sModificar = s;
+            sModificar.PolizaId = s.PolizaId;
+            sModificar.FechaIngreso = s.FechaIngreso;
+            sModificar.FechaOcurrencia = s.FechaOcurrencia;
+            sModificar.Direccion = s.Direccion;
+            sModificar.Descripcion = s.Descripcion;
             db.SaveChanges();
         }
     }
@@ -38,6 +42,14 @@ public class RepositorioSiniestro: IRepositorioSiniestro
             db.Remove(sEliminar);
             db.SaveChanges();
         }
+    }
+    public Siniestro? ObtenerSiniestro(int IdBuscado)
+    {
+       using (var db = new Context())
+        {
+            var sBuscado = db.Siniestros.Where(s => s.Id == IdBuscado).SingleOrDefault();
+            return sBuscado;
+        } 
     }
 
     public List<Siniestro> ListarSiniestros()

@@ -5,9 +5,4 @@ public class Titular : Persona
     public string Direccion { get; set; } = "";
     public string Email { get; set; } = "";
     public List<Vehiculo>? Vehiculos { get; set; }
-
-    public override string ToString()
-    {
-        return base.ToString() + $", Email: {Email}, Direccion: {Direccion}";
-    }
 }

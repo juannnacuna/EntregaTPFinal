@@ -6,9 +6,4 @@ public abstract class Persona
     public string Apellido { get; set; } = "";
     public string Nombre { get; set; } = "";
     public int Telefono { get; set; }
-    
-    public override string ToString()
-    {
-        return $"Id: {Id}, Apellido: {Apellido}, Nombre: {Nombre}, DNI {Dni}, Telefono {Telefono}";
-    }
 }

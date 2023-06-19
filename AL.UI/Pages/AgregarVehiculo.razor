@@ -12,12 +12,12 @@
     <span>Año:</span>
     <input placeholder="Anio" @bind="_vehiculo.Anio" class="form-control">
     <span>Id del titular:</span>
-    <input placeholder="IdTitular" @bind="_vehiculo.IdTitular" class="form-control">
+    <input placeholder="IdTitular" @bind="_vehiculo.TitularId" class="form-control">
     @* <input placeholder="Apellido" @bind="_titular.Direccion" class="form-control">
     <input placeholder="Apellido" @bind="_titular.Email" class="form-control"> *@
     <button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
 </div>
-<DialogoConfirmacion @ref=dialogo Mensaje="Hubo un error al agregar el Vehiculo"  />
+<DialogoConfirmacion @ref=dialogo/>
 
 @code{
     Vehiculo _vehiculo = new Vehiculo();
@@ -28,7 +28,8 @@
             AgregarVehiculoUseCase.Ejecutar(_vehiculo);
             _vehiculo = new Vehiculo();
             Navegador.NavigateTo("listadoVehiculos");
-        }catch{
+        }catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
             dialogo.Mostrar();
         }
     }

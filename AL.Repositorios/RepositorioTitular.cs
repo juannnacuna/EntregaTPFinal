@@ -9,6 +9,9 @@ public class RepositorioTitular : IRepositorioTitular
     {
         using (var db = new Context())
         {
+            var existeTitular = db.Titulares.Where(x => x.Dni == t.Dni).SingleOrDefault();
+            if (existeTitular != null)
+                throw new Exception($"Ya existe un titular de DNI {t.Dni}");
             db.Add(t);
             db.SaveChanges();
         }
@@ -42,6 +45,14 @@ public class RepositorioTitular : IRepositorioTitular
             var aux = db.Titulares.ToList();
             return aux;
         }
+    }
+    public Titular? ObtenerTitular(int IdBuscado)
+    {
+       using (var db = new Context())
+        {
+            var tBuscado = db.Titulares.Where(t => t.Id == IdBuscado).SingleOrDefault();
+            return tBuscado;
+        } 
     }
     public List<Titular> ListarTitularesConSusVehiculos()
     {
