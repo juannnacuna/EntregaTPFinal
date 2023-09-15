@@ -1,0 +1,17 @@
+.container{
+    background-color: #232946;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.container h1{
+    font-size: 50px; 
+    color: white;
+}
+.container span{
+    font-size: 20px; 
+    color: white;
+}

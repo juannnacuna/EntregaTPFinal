@@ -1,0 +1,79 @@
+@page "/listadoVehiculos"
+@inject ListarVehiculosUseCase ListarVehiculosUseCase
+@inject EliminarVehiculoUseCase EliminarVehiculoUseCase
+@inject NavigationManager Navegador
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>DOMINIO</th>
+            <th>MARCA</th>
+            <th>ANIO</th>
+            <th>ID TITULAR</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in _lista)
+        {
+            <tr>
+                <td>@v.Id</td>
+                <td>@v.Dominio</td>
+                <td>@v.Marca</td>
+                <td>@v.Anio</td>
+                <td>@v.TitularId</td>  
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarVehiculo(v)">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(v)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<DialogoConfirmacion @ref=dialogo/>
+<DialogoConfirmacion @ref="dialogoEliminar" OnConfirmado="Eliminar" />
+@code
+{
+    List<Vehiculo> _lista = new List<Vehiculo>();
+    DialogoConfirmacion dialogo = null!;
+    protected override void OnInitialized()
+    {
+        try{
+            _lista = ListarVehiculosUseCase.Ejecutar();
+        }catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+    }
+    DialogoConfirmacion dialogoEliminar = null!;
+    Vehiculo? _vehiculoParaEliminar = null;
+    private void ConfirmarEliminacion(Vehiculo v)
+    {
+        _vehiculoParaEliminar = v;
+        dialogoEliminar.Mensaje = $"¿Desea eliminar el vehículo {v.Id}?";
+        dialogoEliminar.Mostrar();
+    }
+    private void Eliminar()
+    {
+        try
+        {
+            if (_vehiculoParaEliminar != null)
+            {
+                EliminarVehiculoUseCase.Ejecutar(_vehiculoParaEliminar.Id);
+                _lista = ListarVehiculosUseCase.Ejecutar();
+            }
+        }
+        catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+    }
+    void ModificarVehiculo(Vehiculo v)
+    {
+        Navegador.NavigateTo($"vehiculo/{v.Id}");
+    }
+}

@@ -1,0 +1,345 @@
+/* _content/Aseguradora.UI/Pages/AgregarPoliza.razor.rz.scp.css */
+.container[b-g0sojvagbm]{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #b8c1ec;
+    border-radius: 1rem;
+    gap: 0.5rem;
+}
+.button[b-g0sojvagbm]{
+    width: 200px;
+    border-style: solid;
+    background-color: #eebbc3;
+    border-radius: 0.5rem;
+    height: 50px;
+}
+.button:hover[b-g0sojvagbm]{
+    transition: 1.5s;
+    background-color: #e66e80 ;
+}
+
+.container input[b-g0sojvagbm]{
+    width: 400px;
+}
+/* _content/Aseguradora.UI/Pages/AgregarSiniestro.razor.rz.scp.css */
+.container[b-p8pp65k8es]{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #b8c1ec;
+    border-radius: 1rem;
+    gap: 0.5rem;
+}
+.button[b-p8pp65k8es]{
+    width: 200px;
+    border-style: solid;
+    background-color: #eebbc3;
+    border-radius: 0.5rem;
+    height: 50px;
+}
+.button:hover[b-p8pp65k8es]{
+    transition: 1.5s;
+    background-color: #e66e80 ;
+}
+
+.container input[b-p8pp65k8es]{
+    width: 400px;
+}
+/* _content/Aseguradora.UI/Pages/AgregarTercero.razor.rz.scp.css */
+.container[b-enxvpgfoh7]{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #b8c1ec;
+    border-radius: 1rem;
+    gap: 0.5rem;
+}
+.button[b-enxvpgfoh7]{
+    width: 200px;
+    border-style: solid;
+    background-color: #eebbc3;
+    border-radius: 0.5rem;
+    height: 50px;
+}
+.button:hover[b-enxvpgfoh7]{
+    transition: 1.5s;
+    background-color: #e66e80 ;
+}
+
+.container input[b-enxvpgfoh7]{
+    width: 400px;
+}
+/* _content/Aseguradora.UI/Pages/AgregarTitular.razor.rz.scp.css */
+.container[b-u6aqqwyaej]{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #b8c1ec;
+    border-radius: 1rem;
+    gap: 0.5rem;
+}
+.button[b-u6aqqwyaej]{
+    width: 200px;
+    border-style: solid;
+    background-color: #eebbc3;
+    border-radius: 0.5rem;
+    height: 50px;
+}
+.button:hover[b-u6aqqwyaej]{
+    transition: 1.5s;
+    background-color: #e66e80 ;
+}
+
+.container input[b-u6aqqwyaej]{
+    width: 400px;
+}
+/* _content/Aseguradora.UI/Pages/AgregarVehiculo.razor.rz.scp.css */
+.container[b-ctsbowv3cb]{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #b8c1ec;
+    border-radius: 1rem;
+    gap: 0.5rem;
+}
+.button[b-ctsbowv3cb]{
+    width: 200px;
+    border-style: solid;
+    background-color: #eebbc3;
+    border-radius: 0.5rem;
+    height: 50px;
+}
+.button:hover[b-ctsbowv3cb]{
+    transition: 1.5s;
+    background-color: #e66e80 ;
+}
+
+.container input[b-ctsbowv3cb]{
+    width: 400px;
+}
+/* _content/Aseguradora.UI/Pages/Index.razor.rz.scp.css */
+.container[b-fyxo1zynx4]{
+    background-color: #232946;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.container h1[b-fyxo1zynx4]{
+    font-size: 50px; 
+    color: white;
+}
+.container span[b-fyxo1zynx4]{
+    font-size: 20px; 
+    color: white;
+}
+/* _content/Aseguradora.UI/Pages/ListadoTitularesConVehiculos.razor.rz.scp.css */
+.container[b-3d7216s4iq]{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #b8c1ec;
+    border-radius: 1rem;
+    gap: 0.5rem;
+    height: 800px;
+    margin: 10px 10px;
+}
+.containerTitulares[b-3d7216s4iq]{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    background-color: #eebbc3;
+    border-radius: 0.5rem;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+.containerTitulares span[b-3d7216s4iq]{
+    display: block;
+    font-size: large;
+}
+.containerVehiculos[b-3d7216s4iq]{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    background-color: #232946;
+    color: white;
+    border-radius: 0.5rem;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+.containerVehiculos span[b-3d7216s4iq]{
+    display: block;
+    font-size: large;
+}
+/* _content/Aseguradora.UI/Shared/DialogoConfirmacion.razor.rz.scp.css */
+.dialogo-contenedor[b-kzkkcmuwyw] {
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    
+    .dialogo-contenido[b-kzkkcmuwyw]{
+    width: 50%;
+    padding: 20px;
+    background-color: white;
+}
+/* _content/Aseguradora.UI/Shared/MainLayout.razor.rz.scp.css */
+.page[b-g6x6s7l54y] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+main[b-g6x6s7l54y] {
+    flex: 1;
+}
+
+.sidebar[b-g6x6s7l54y] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-g6x6s7l54y] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-g6x6s7l54y]  a, .top-row .btn-link[b-g6x6s7l54y] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-g6x6s7l54y] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-g6x6s7l54y] {
+        display: none;
+    }
+
+    .top-row.auth[b-g6x6s7l54y] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-g6x6s7l54y], .top-row .btn-link[b-g6x6s7l54y] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-g6x6s7l54y] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-g6x6s7l54y] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-g6x6s7l54y] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row[b-g6x6s7l54y], article[b-g6x6s7l54y] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* _content/Aseguradora.UI/Shared/NavMenu.razor.rz.scp.css */
+.navbar-toggler[b-7swmyw7ncn] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-7swmyw7ncn] {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-7swmyw7ncn] {
+    font-size: 1.1rem;
+}
+
+.oi[b-7swmyw7ncn] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-7swmyw7ncn] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-7swmyw7ncn] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-7swmyw7ncn] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-7swmyw7ncn]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-7swmyw7ncn]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item[b-7swmyw7ncn]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-7swmyw7ncn] {
+        display: none;
+    }
+
+    .collapse[b-7swmyw7ncn] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+    
+    .nav-scrollable[b-7swmyw7ncn] {
+        /* Allow sidebar to scroll for tall menus */
+        height: calc(100vh - 3.5rem);
+        overflow-y: auto;
+    }
+}

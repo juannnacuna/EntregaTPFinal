@@ -1,0 +1,47 @@
+@page "/listadoTitularesConVehiculos"
+@inject ListarTitularesConSusVehiculosUseCase ListarTitularesConSusVehiculosUseCase
+
+
+        @foreach (var t in _lista)
+        {
+            <div class=container>
+                <div class=containerTitulares>
+                    <span>Titular Id: @t.Id</span>
+                    <span>Apellido: @t.Apellido</span>
+                    <span>Nombre: @t.Nombre</span>
+                    <span>DNI: @t.Dni</span>
+                    <span>Teléfono: @t.Telefono</span>
+                    <span>Dirección: @t.Direccion</span>
+                    <span>Email: @t.Email</span>
+                </div>
+                @if(t.Vehiculos != null){
+                    foreach (var v in t.Vehiculos)
+                    {  
+                        <div class=containerVehiculos>
+                            <span>Vehículo Id: @v.Id</span>
+                            <span>Dominio: @v.Dominio</span>
+                            <span>Marca: @v.Marca</span>
+                            <span>Año: @v.Anio</span>
+                        </div>
+                    }
+                }
+            </div>
+        }
+@code
+{
+    List<Titular> _lista = new List<Titular>();
+    DialogoConfirmacion dialogo = null!;
+    protected override void OnInitialized()
+    {
+
+        try
+        {
+            _lista = ListarTitularesConSusVehiculosUseCase.Ejecutar();
+        }
+        catch (Exception e)
+        {
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+    }
+}

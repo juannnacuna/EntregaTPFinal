@@ -1,0 +1,83 @@
+@page "/listadoTerceros"
+@inject ListarTercerosUseCase ListarTercerosUseCase
+@inject EliminarTerceroUseCase EliminarTerceroUseCase
+@inject NavigationManager Navegador
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>APELLIDO</th>
+            <th>NOMBRE</th>
+            <th>DNI</th>
+            <th>TELEFONO</th>
+            <th>ASEGURADORA</th>
+            <th>ID SINIESTRO</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in _lista)
+        {
+            <tr>
+                <td>@t.Id</td>
+                <td>@t.Apellido</td>
+                <td>@t.Nombre</td>
+                <td>@t.Dni</td>
+                <td>@t.Telefono</td>
+                <td>@t.Aseguradora</td>
+                <td>@t.SiniestroId</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarTercero(t)">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>ConfirmarEliminacion(t)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<DialogoConfirmacion @ref=dialogo/>
+<DialogoConfirmacion @ref="dialogoEliminar" OnConfirmado="Eliminar" />
+@code
+{
+    List<Tercero> _lista = new List<Tercero>();
+    DialogoConfirmacion dialogo = null!;
+    protected override void OnInitialized()
+    {
+        try{
+            _lista = ListarTercerosUseCase.Ejecutar();
+        }catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+    }
+    DialogoConfirmacion dialogoEliminar = null!;
+    Tercero? _terceroParaEliminar = null;
+    private void ConfirmarEliminacion(Tercero t)
+    {
+        _terceroParaEliminar = t;
+        dialogoEliminar.Mensaje = $"¿Desea eliminar la tercero {t.Id}?";
+        dialogoEliminar.Mostrar();
+    }
+    private void Eliminar()
+    {
+        try
+        {
+            if (_terceroParaEliminar != null)
+            {
+                EliminarTerceroUseCase.Ejecutar(_terceroParaEliminar.Id);
+                _lista = ListarTercerosUseCase.Ejecutar();
+            }
+        }
+        catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+    }
+    void ModificarTercero(Tercero t)
+    {
+        Navegador.NavigateTo($"tercero/{t.Id}");
+    }
+}

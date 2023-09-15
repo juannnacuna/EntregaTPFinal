@@ -1,0 +1,41 @@
+@page "/agregarTercero" 
+@inject NavigationManager Navegador;
+@inject AgregarTerceroUseCase AgregarTerceroUseCase
+
+<div class=container>
+    <h1>Agregar un Tercero</h1>
+    <span>Nombre:</span>
+    <input placeholder="Nombre" @bind="_tercero.Nombre" class="form-control">
+    <span>Apellido:</span>
+    <input placeholder="Apellido" @bind="_tercero.Apellido" class="form-control">
+    <span>DNI:</span>
+    <input placeholder="DNI" @bind="_tercero.Dni" class="form-control">
+    <span>Telefono:</span>
+    <input placeholder="Telefono" @bind="_tercero.Telefono" class="form-control">
+    <span>Aseguradora:</span>
+    <input placeholder="Aseguradora" @bind="_tercero.Aseguradora" class="form-control">
+    <span>Id Siniestro:</span>
+    <input placeholder="Id Siniestro" @bind="_tercero.SiniestroId" class="form-control"> 
+    <button class=button @onclick="Aceptar">Aceptar</button>
+</div>
+
+<DialogoConfirmacion @ref=dialogo/>
+
+
+@code{
+    Tercero _tercero = new Tercero();
+    DialogoConfirmacion dialogo = null!;
+    void Aceptar()
+    {   
+        try{
+            AgregarTerceroUseCase.Ejecutar(_tercero);
+            _tercero = new Tercero();
+            Navegador.NavigateTo("listadoTerceros");
+        }catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+       
+    }
+
+}

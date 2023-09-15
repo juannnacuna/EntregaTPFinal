@@ -1,0 +1,71 @@
+@page "/titular/{Id:int?}"
+@inject ObtenerTitularUseCase ObtenerTitularUseCase
+@inject ModificarTitularUseCase ModificarTitularUseCase
+@inject NavigationManager Navegador;
+@inject AgregarTitularUseCase AgregarTitularUseCase
+
+@if (_esNuevoTitular)
+{
+    <h3>Agregando un nuevo Titular</h3>
+}
+else
+{
+    <h3>Modificando el Titular "@_titular.Id"</h3>
+}
+
+<div>
+    <span>Nombre:</span>
+    <input placeholder="Nombre" @bind="_titular.Nombre" class="form-control">
+    <span>Apellido:</span>
+    <input placeholder="Apellido" @bind="_titular.Apellido" class="form-control">
+    <span>DNI:</span>
+    <input placeholder="DNI" @bind="_titular.Dni" class="form-control">
+    <span>Teléfono:</span>
+    <input placeholder="Teléfono" @bind="_titular.Telefono" class="form-control">
+    <span>Dirección:</span>
+    <input placeholder="Dirección" @bind="_titular.Direccion" class="form-control">
+    <span>Email:</span>
+    <input placeholder="Email" @bind="_titular.Email" class="form-control"> 
+    <button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+</div>
+
+<DialogoConfirmacion @ref=dialogo/>
+
+@code {
+    Titular _titular = new Titular();
+    DialogoConfirmacion dialogo = null!;
+    [Parameter] public int? Id { get; set; }
+    bool _esNuevoTitular = true;
+    protected override void OnParametersSet()
+    {
+        if (Id != null)
+        {
+            var t_hallado = ObtenerTitularUseCase.Ejecutar(Id.Value);
+            if (t_hallado != null)
+            {
+                _titular = t_hallado;
+                _esNuevoTitular = false;
+            }
+        }
+    }
+    void Aceptar()
+    {
+        try
+        {
+            if (_esNuevoTitular)
+            {
+                AgregarTitularUseCase.Ejecutar(_titular);
+            }
+            else
+            {
+                ModificarTitularUseCase.Ejecutar(_titular);
+            }
+            _titular = new Titular();
+            Navegador.NavigateTo("listadoTitulares");
+        }
+        catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+    }
+}

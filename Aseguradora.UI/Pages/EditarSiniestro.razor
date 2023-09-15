@@ -1,0 +1,69 @@
+@page "/siniestro/{Id:int?}"
+@inject ObtenerSiniestroUseCase ObtenerSiniestroUseCase
+@inject ModificarSiniestroUseCase ModificarSiniestroUseCase
+@inject NavigationManager Navegador;
+@inject AgregarSiniestroUseCase AgregarSiniestroUseCase
+
+@if (_esNuevoSiniestro)
+{
+    <h3>Agregando un nuevo Siniestro</h3>
+}
+else
+{
+    <h3>Modificando el Siniestro "@_siniestro.Id"</h3>
+}
+
+<div>
+    <span>Id Póliza:</span>
+    <input placeholder="Id Poliza" @bind="_siniestro.PolizaId" class="form-control">
+    <span>Fecha de ingreso:</span>
+    <input placeholder="Fecha de ingreso" @bind="_siniestro.FechaIngreso" class="form-control">
+    <span>Fecha de ocurrencia:</span>
+    <input placeholder="Fecha de ocurrencia" @bind="_siniestro.FechaOcurrencia" class="form-control">
+    <span>Dirección:</span>
+    <input placeholder="Dirección" @bind="_siniestro.Direccion" class="form-control">
+    <span>Descripción:</span>
+    <input placeholder="Descripción" @bind="_siniestro.Descripcion" class="form-control"> 
+    <button class="btn btn-primary" @onclick="Aceptar">Aceptar</button>
+</div>
+
+<DialogoConfirmacion @ref=dialogo/>
+
+@code {
+    Siniestro _siniestro = new Siniestro();
+    DialogoConfirmacion dialogo = null!;
+    [Parameter] public int? Id { get; set; }
+    bool _esNuevoSiniestro = true;
+    protected override void OnParametersSet()
+    {
+        if (Id != null)
+        {
+            var s_hallado = ObtenerSiniestroUseCase.Ejecutar(Id.Value);
+            if (s_hallado != null)
+            {
+                _siniestro = s_hallado;
+                _esNuevoSiniestro = false;
+            }
+        }
+    }
+    void Aceptar()
+    {
+        try
+        {
+            if (_esNuevoSiniestro)
+            {
+                AgregarSiniestroUseCase.Ejecutar(_siniestro);
+            }
+            else
+            {
+                ModificarSiniestroUseCase.Ejecutar(_siniestro);
+            }
+            _siniestro = new Siniestro();
+            Navegador.NavigateTo("listadoSiniestros");
+        }
+        catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+    }
+}
