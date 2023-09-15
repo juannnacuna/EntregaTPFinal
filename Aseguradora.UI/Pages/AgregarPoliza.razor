@@ -1,0 +1,41 @@
+@page "/agregarPoliza" 
+@inject NavigationManager Navegador;
+@inject AgregarPolizaUseCase AgregarPolizaUseCase
+
+<div class=container>
+    <h1>Agregar una Póliza</h1>
+    <span>Id del Vehículo:</span>
+    <input placeholder="Id del vehiculo" @bind="_poliza.VehiculoId" class="form-control">
+    <span>Valor:</span>
+    <input placeholder="Valor" @bind="_poliza.Valor" class="form-control">
+    <span>Franquicia:</span>
+    <input placeholder="Franquicia" @bind="_poliza.Franquicia" class="form-control">
+    <span>Tipo de Cobertura (0: ResponsabilidadCivil, 1: TodoRiesgo):</span>
+    <input placeholder="Tipo de Cobertura (0: ResponsabilidadCivil, 1: TodoRiesgo)" @bind="_poliza.TipoCobertura" class="form-control">
+    <span>Fecha de inicio de vigencia:</span>
+    <input placeholder="Fecha de inicio de vigencia:" @bind="_poliza.FechaInicioVigencia" class="form-control">
+    <span>Fecha de fin de vigencia:</span>
+    <input placeholder="Fecha de fin de vigencia:" @bind="_poliza.FechaFinVigencia" class="form-control"> 
+    <button class=button @onclick="Aceptar">Aceptar</button>
+</div>
+
+<DialogoConfirmacion @ref=dialogo/>
+
+
+@code{
+    Poliza _poliza = new Poliza();
+    DialogoConfirmacion dialogo = null!;
+    void Aceptar()
+    {   
+        try{
+            AgregarPolizaUseCase.Ejecutar(_poliza);
+            _poliza = new Poliza();
+            Navegador.NavigateTo("listadoPolizas");
+        }catch (Exception e){
+            dialogo.Mensaje = "Error: " + e.Message;
+            dialogo.Mostrar();
+        }
+       
+    }
+
+}

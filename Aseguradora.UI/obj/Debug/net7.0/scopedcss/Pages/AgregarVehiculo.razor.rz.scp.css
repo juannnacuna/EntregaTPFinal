@@ -1,0 +1,24 @@
+.container[b-ctsbowv3cb]{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #b8c1ec;
+    border-radius: 1rem;
+    gap: 0.5rem;
+}
+.button[b-ctsbowv3cb]{
+    width: 200px;
+    border-style: solid;
+    background-color: #eebbc3;
+    border-radius: 0.5rem;
+    height: 50px;
+}
+.button:hover[b-ctsbowv3cb]{
+    transition: 1.5s;
+    background-color: #e66e80 ;
+}
+
+.container input[b-ctsbowv3cb]{
+    width: 400px;
+}
